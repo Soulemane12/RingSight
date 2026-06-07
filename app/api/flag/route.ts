@@ -3,7 +3,10 @@ import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
-const REVIEWER_EMAILS = ['14soulemanesow@gmail.com', 'ajaygutha1@gmail.com'];
+// Resend free tier only allows sending to the verified owner address.
+// Once a custom domain is added at resend.com/domains, change `from` and add more recipients.
+const PRIMARY_EMAIL = '14soulemanesow@gmail.com';
+const CC_EMAIL = 'ajaygutha1@gmail.com'; // shown in body; add to `to` after domain verified
 
 interface ActionReasonEmail {
   reason_code?: string;
@@ -81,7 +84,8 @@ export async function POST(request: NextRequest) {
 
   const { error } = await resend.emails.send({
     from: 'RingSight <onboarding@resend.dev>',
-    to: REVIEWER_EMAILS,
+    to: PRIMARY_EMAIL,
+    replyTo: CC_EMAIL,
     subject: `[RingSight] ${urgency === 'Immediate' ? 'Immediate review required' : 'Case flagged'} - ${case_id} (${risk_score}/100)`,
     html: buildFlagEmail({
       case_id,
