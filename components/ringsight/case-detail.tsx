@@ -27,6 +27,7 @@ interface CaseDetailProps {
   allRelationships: RelationshipSignal[];
   allTransactions: NormalizedRow[];
   autoFlagged: boolean;
+  onViewInDocs?: (query: string) => void;
 }
 
 export function CaseDetail({
@@ -42,6 +43,7 @@ export function CaseDetail({
   allRelationships,
   allTransactions,
   autoFlagged,
+  onViewInDocs,
 }: CaseDetailProps) {
   const colors = severityColor(caseItem.severity);
 
@@ -96,9 +98,16 @@ export function CaseDetail({
           allAccounts={allAccounts}
           allRelationships={allRelationships}
         />
-        <div className="flex gap-3 mt-2 text-xs text-zinc-400 flex-wrap">
+        <div className="flex gap-2 mt-2 flex-wrap">
           {caseItem.accounts.map(id => (
-            <span key={id} className="font-mono">{id}</span>
+            <button
+              key={id}
+              onClick={() => onViewInDocs?.(id)}
+              title="View in dataset"
+              className="font-mono text-xs px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 hover:bg-blue-100 hover:text-blue-700 transition-colors"
+            >
+              {id}
+            </button>
           ))}
         </div>
       </Section>
@@ -108,7 +117,7 @@ export function CaseDetail({
 
       {/* Evidence */}
       <Section title={`Pattern Evidence (${findings.length} findings)`}>
-        <EvidenceList findings={findings} allTransactions={allTransactions} />
+        <EvidenceList findings={findings} allTransactions={allTransactions} onViewInDocs={onViewInDocs} />
       </Section>
 
       {/* Key evidence from report */}

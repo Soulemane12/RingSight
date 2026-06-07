@@ -12,9 +12,10 @@ const INLINE_CITATION_LIMIT = 4;
 interface EvidenceListProps {
   findings: Agent1Finding[];
   allTransactions: NormalizedRow[];
+  onViewInDocs?: (query: string) => void;
 }
 
-export function EvidenceList({ findings, allTransactions }: EvidenceListProps) {
+export function EvidenceList({ findings, allTransactions, onViewInDocs }: EvidenceListProps) {
   const [expanded, setExpanded] = useState<string | null>(findings[0]?.finding_id ?? null);
   const [drawerInfo, setDrawerInfo] = useState<{ title: string; txnIds: string[] } | null>(null);
 
@@ -42,6 +43,7 @@ export function EvidenceList({ findings, allTransactions }: EvidenceListProps) {
               setExpanded(expanded === finding.finding_id ? null : finding.finding_id)
             }
             onViewAllTransactions={(title, txnIds) => setDrawerInfo({ title, txnIds })}
+            onViewInDocs={onViewInDocs}
           />
         ))}
       </div>
@@ -66,6 +68,7 @@ interface FindingCardProps {
   txnMap: Map<string, NormalizedRow>;
   onToggle: () => void;
   onViewAllTransactions: (title: string, txnIds: string[]) => void;
+  onViewInDocs?: (query: string) => void;
 }
 
 function FindingCard({
@@ -74,6 +77,7 @@ function FindingCard({
   txnMap,
   onToggle,
   onViewAllTransactions,
+  onViewInDocs,
 }: FindingCardProps) {
   const scoreColor =
     finding.confidence >= 0.85 ? 'text-red-600' :
@@ -113,8 +117,13 @@ function FindingCard({
               {finding.transaction_ids.length} transaction{finding.transaction_ids.length !== 1 ? 's' : ''}
             </span>
             <span className="text-xs text-zinc-400">·</span>
-            <span className="text-xs text-zinc-500">
-              {finding.accounts.join(' → ')}
+            <span className="flex items-center gap-1 text-xs text-zinc-500 flex-wrap">
+              {finding.accounts.map((a, i) => (
+                <span key={a} className="flex items-center gap-1">
+                  {i > 0 && <span className="text-zinc-300">→</span>}
+                  <button onClick={e => { e.stopPropagation(); onViewInDocs?.(a); }} className="font-mono hover:text-blue-600 hover:underline transition-colors">{a}</button>
+                </span>
+              ))}
             </span>
           </div>
         </div>
@@ -136,6 +145,7 @@ function FindingCard({
               onViewAll={() =>
                 onViewAllTransactions(`${finding.title} — ${ev.signal_name}`, ev.supporting_transaction_ids)
               }
+              onViewInDocs={onViewInDocs}
             />
           ))}
         </div>
@@ -150,9 +160,10 @@ interface EvidenceSignalProps {
   evidence: Agent1Evidence;
   txnMap: Map<string, NormalizedRow>;
   onViewAll: () => void;
+  onViewInDocs?: (query: string) => void;
 }
 
-function EvidenceSignal({ evidence, txnMap, onViewAll }: EvidenceSignalProps) {
+function EvidenceSignal({ evidence, txnMap, onViewAll, onViewInDocs }: EvidenceSignalProps) {
   const citations = evidence.supporting_transaction_ids
     .slice(0, INLINE_CITATION_LIMIT)
     .map(id => txnMap.get(id))
@@ -197,7 +208,7 @@ function EvidenceSignal({ evidence, txnMap, onViewAll }: EvidenceSignalProps) {
           </p>
           <div className="rounded-lg border border-zinc-200 overflow-hidden divide-y divide-zinc-100">
             {citations.map(t => (
-              <TransactionCitation key={t.txn_id} txn={t} />
+              <TransactionCitation key={t.txn_id} txn={t} onViewInDocs={onViewInDocs} />
             ))}
           </div>
           {remaining > 0 && (
@@ -227,7 +238,7 @@ function EvidenceSignal({ evidence, txnMap, onViewAll }: EvidenceSignalProps) {
 
 // ── Single transaction citation row ─────────────────────────────────────────
 
-function TransactionCitation({ txn }: { txn: NormalizedRow }) {
+function TransactionCitation({ txn, onViewInDocs }: { txn: NormalizedRow; onViewInDocs?: (q: string) => void }) {
   const tags: string[] = [];
   if (txn.is_night) tags.push('nighttime');
   if (txn.amount_band_400_900) tags.push('structured amt');
@@ -236,11 +247,19 @@ function TransactionCitation({ txn }: { txn: NormalizedRow }) {
   return (
     <div className="flex items-center gap-3 px-3 py-2 bg-white hover:bg-zinc-50 text-xs">
       {/* TX ID */}
-      <span className="font-mono text-zinc-500 shrink-0 w-20 truncate">{txn.txn_id}</span>
+      <button
+        onClick={() => onViewInDocs?.(txn.txn_id)}
+        className="font-mono text-blue-600 hover:underline shrink-0 w-20 truncate text-left"
+        title="View in dataset"
+      >
+        {txn.txn_id}
+      </button>
 
       {/* Flow */}
-      <span className="text-zinc-700 shrink-0 font-mono text-[10px]">
-        {txn.account_id} → {txn.counterparty_id}
+      <span className="text-zinc-700 shrink-0 font-mono text-[10px] flex items-center gap-1">
+        <button onClick={() => onViewInDocs?.(txn.account_id)} className="hover:text-blue-600 hover:underline">{txn.account_id}</button>
+        <span>→</span>
+        <button onClick={() => onViewInDocs?.(txn.counterparty_id)} className="hover:text-blue-600 hover:underline">{txn.counterparty_id}</button>
       </span>
 
       {/* Amount */}

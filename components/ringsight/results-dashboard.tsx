@@ -36,6 +36,12 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
   const { engine, agent1, agent2, agent3, agent4 } = result;
 
   const [tab, setTab] = useState<DashboardTab>('cases');
+  const [docsSearch, setDocsSearch] = useState('');
+
+  function viewInDocs(query: string) {
+    setDocsSearch(query);
+    setTab('docs');
+  }
   const [selectedCaseId, setSelectedCaseId] = useState<string>(
     agent2.cases[0]?.case_id ?? '',
   );
@@ -217,7 +223,7 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
 
       {tab === 'docs' ? (
         <div className="flex flex-col" style={{ height: 'calc(100vh - 160px)' }}>
-          <DocsPanel />
+          <DocsPanel initialSearch={docsSearch} metrics={engine.metrics} caseCount={agent2.cases.length} findingCount={agent1.findings.length} totalExposure={totalExposure} />
         </div>
       ) : (
         <div className="px-6 py-6 max-w-[1400px] mx-auto">
@@ -249,6 +255,7 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
                   allRelationships={engine.relationships}
                   allTransactions={caseTxns}
                   autoFlagged={autoFlaggedCaseIds.has(selectedCaseId)}
+                  onViewInDocs={viewInDocs}
                 />
               ) : (
                 <div className="flex items-center justify-center h-64 text-zinc-400 text-sm">
