@@ -62,6 +62,11 @@ export interface Agent4Input {
   agent1: Agent1Output;
   agent2: Agent2Output;
   agent3: Agent3Output;
+  domain_research?: {
+    tool: string;
+    researchedAt: string;
+    findings: { finding: string; productDecision: string }[];
+  };
   cognee_recall: {
     recalled_agent_1: boolean;
     recalled_agent_2: boolean;

@@ -163,6 +163,31 @@ export function CaseDetail({
         agent3ActionCount={agent3ActionCount}
       />
 
+      {/* Geodo Research-Informed Design */}
+      <div className="border border-zinc-200 rounded-xl bg-white overflow-hidden">
+        <div className="px-4 py-3 border-b border-zinc-100 bg-zinc-50 flex items-center gap-2">
+          <span className="text-xs font-bold text-zinc-400 uppercase tracking-wide">Research-Informed Design</span>
+          <span className="text-xs px-1.5 py-0.5 rounded bg-zinc-200 text-zinc-500 font-mono">Geodo</span>
+        </div>
+        <div className="p-4 space-y-2">
+          <p className="text-xs text-zinc-500">Geodo domain research on fraud analyst workflows influenced this product:</p>
+          <ul className="space-y-1.5 text-xs text-zinc-700">
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-500 mt-0.5 shrink-0">•</span>
+              <span><span className="font-semibold">Ranked case triage</span> — highest-risk cases surface first so analysts spend 3 minutes per case, not 30.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-500 mt-0.5 shrink-0">•</span>
+              <span><span className="font-semibold">Evidence-backed alerts</span> — every flag includes transaction IDs, sender→receiver, amounts, and timestamps for an audit-ready evidence trail.</span>
+            </li>
+            <li className="flex items-start gap-2">
+              <span className="text-emerald-500 mt-0.5 shrink-0">•</span>
+              <span><span className="font-semibold">Downloadable case documentation</span> — Agent 4 generates a full investigation report per case for analyst review and sign-off.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
       {/* Limitations */}
       {report?.limitations && (
         <div className="border border-zinc-200 rounded-xl p-4 bg-amber-50">

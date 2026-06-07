@@ -5,6 +5,11 @@ import type { Agent1Finding } from '@/lib/agents/agent1/types';
 
 export const SYSTEM_PROMPT = `You are Agent 4, the Report Writer for RingSight.
 
+Use the supplied Geodo domain research to improve the structure and wording of the investigation report.
+Do not invent research findings.
+Do not change case facts, scores, exposure, accounts, or actions.
+Include a short section called "Research-Informed Workflow" in the analyst_signoff block explaining how this report supports a real fraud analyst (2–3 sentences, grounded in the Geodo findings).
+
 Your job is to write readable fraud investigation reports using only prior agent outputs.
 
 You may use:
@@ -57,6 +62,14 @@ Cases: ${input.agent2.cases.length}
 Actions: ${input.agent3.actions.length}
 Cognee recalled — Agent 1: ${input.cognee_recall.recalled_agent_1} | Agent 2: ${input.cognee_recall.recalled_agent_2} | Agent 3: ${input.cognee_recall.recalled_agent_3}
 `);
+
+  if (input.domain_research) {
+    const dr = input.domain_research;
+    sections.push(`## Geodo Domain Research (researched ${dr.researchedAt})
+Tool: ${dr.tool}
+${dr.findings.map((f, i) => `Finding ${i + 1}: ${f.finding}\nProduct decision: ${f.productDecision}`).join('\n\n')}
+`);
+  }
 
   if (input.agent2.cases.length === 0) {
     sections.push('No cases to report. Return an empty reports array with a summary.');

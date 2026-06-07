@@ -4,6 +4,7 @@ import type { Agent2Output } from '@/lib/agents/agent2/types';
 import type { Agent3Output } from '@/lib/agents/agent3/types';
 import type { Agent4Output, Agent4Input, RawLLMAgent4Output } from './types';
 import { recallAllAgentsFromCognee } from './recall';
+import { geodoResearch } from '@/lib/research/geodo-research';
 import { SYSTEM_PROMPT, buildUserPrompt } from './prompt';
 import { validateAndBuildReports } from './validate';
 import { cacheReport } from './cache';
@@ -154,6 +155,14 @@ export async function runReportWriterAgent(params: {
     agent1,
     agent2,
     agent3,
+    domain_research: {
+      tool: geodoResearch.tool,
+      researchedAt: geodoResearch.researchedAt,
+      findings: geodoResearch.findings.map(f => ({
+        finding: f.finding,
+        productDecision: f.productDecision,
+      })),
+    },
     cognee_recall: {
       recalled_agent_1: recall.recalled_agent_1,
       recalled_agent_2: recall.recalled_agent_2,
