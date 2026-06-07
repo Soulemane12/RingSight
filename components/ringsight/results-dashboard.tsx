@@ -216,7 +216,9 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
       </div>
 
       {tab === 'docs' ? (
-        <DocsPanel />
+        <div className="flex flex-col" style={{ height: 'calc(100vh - 160px)' }}>
+          <DocsPanel />
+        </div>
       ) : (
         <div className="px-6 py-6 max-w-[1400px] mx-auto">
           {/* Top metrics */}
