@@ -165,7 +165,7 @@ function buildFlagEmail(body: FlagRequestBody): string {
     <div style="padding: 24px;">
       <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-bottom: 20px;">
         ${metricBox('Risk Score', `${risk_score}/100`, accentText, accentBg, accentBorder)}
-        ${metricBox('Funds at Risk', formatMoney(total_exposure), '#09090b', '#f8fafc', '#e4e4e7')}
+        ${metricBox('Total Funds at Risk', formatMoney(total_exposure), '#09090b', '#f8fafc', '#e4e4e7')}
         ${metricBox('Transactions', String(transaction_count ?? transaction_ids.length), '#09090b', '#f8fafc', '#e4e4e7')}
       </div>
 

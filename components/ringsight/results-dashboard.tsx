@@ -42,6 +42,13 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
 
   const totalExposure = agent2.cases.reduce((s, c) => s + c.total_exposure, 0);
   const connectedAccounts = new Set(agent2.cases.flatMap(c => c.accounts)).size;
+  const caseSeveritySummary = ['Critical', 'High', 'Medium', 'Low']
+    .map(severity => {
+      const count = agent2.cases.filter(c => c.severity === severity).length;
+      return count > 0 ? `${count} ${severity}` : null;
+    })
+    .filter(Boolean)
+    .join(', ');
 
   const selectedCase = agent2.cases.find(c => c.case_id === selectedCaseId);
   const selectedAction = agent3.actions.find(a => a.case_id === selectedCaseId);
@@ -201,7 +208,7 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
       <div className="px-6 py-6 max-w-[1400px] mx-auto">
         {/* Top metrics */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <MetricCard label="Funds at Risk" value={formatMoneyFull(totalExposure)} sub="flagged transfer volume" />
+          <MetricCard label="Total Funds at Risk" value={formatMoneyFull(totalExposure)} sub={`Based on all ${agent2.cases.length} cases: ${caseSeveritySummary}`} />
           <MetricCard label="Fraud Cases" value={String(agent2.cases.length)} sub={`from ${agent1.findings.length} patterns found`} />
           <MetricCard label="Connected Accounts" value={String(connectedAccounts)} sub="in flagged networks" />
           <MetricCard label="Transfers Reviewed" value={engine.metrics.internal_transfer_count.toLocaleString()} sub={`${engine.metrics.account_count} accounts total`} />

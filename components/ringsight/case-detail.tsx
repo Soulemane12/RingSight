@@ -79,7 +79,7 @@ export function CaseDetail({
 
         <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <Stat label="Risk Score" value={`${caseItem.risk_score}/100`} highlight />
-          <Stat label="Funds at Risk" value={formatMoneyFull(caseItem.total_exposure)} />
+          <Stat label="Total Funds at Risk" value={formatMoneyFull(caseItem.total_exposure)} />
           <Stat label="Accounts" value={String(caseItem.accounts.length)} />
         </div>
 
