@@ -98,6 +98,21 @@ export function UploadPanel({ onAnalyze, onLoadDemo, isLoadingDemo }: UploadPane
         ))}
       </div>
 
+      {/* Geodo research strip */}
+      <div className="bg-zinc-900 border-t border-b border-zinc-800 px-8 py-5">
+        <div className="max-w-4xl mx-auto flex flex-col sm:flex-row items-start sm:items-center gap-4">
+          <div className="flex items-center gap-2 shrink-0">
+            <span className="text-xs font-bold text-zinc-400 uppercase tracking-widest">Research-Informed Design</span>
+            <span className="text-xs px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-500 font-mono border border-zinc-700">Geodo</span>
+          </div>
+          <div className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-zinc-500">
+            <span className="flex items-center gap-1.5"><span className="text-emerald-500">•</span> Ranked case triage — highest-risk first</span>
+            <span className="flex items-center gap-1.5"><span className="text-emerald-500">•</span> Evidence-backed alerts with transaction citations</span>
+            <span className="flex items-center gap-1.5"><span className="text-emerald-500">•</span> Downloadable investigation reports per case</span>
+          </div>
+        </div>
+      </div>
+
       {/* Upload card */}
       <div className="flex flex-col items-center px-6 py-16 flex-1">
         <div className="w-full max-w-lg">

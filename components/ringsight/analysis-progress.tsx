@@ -406,6 +406,20 @@ export function AnalysisProgress({ runId, events, rowCount }: AnalysisProgressPr
           extraContent={a4Extra}
         />
       </div>
+
+      {/* Geodo research footer */}
+      <div className="mt-8 pt-5 border-t border-zinc-200">
+        <div className="flex flex-wrap items-center gap-2 text-xs text-zinc-400">
+          <span className="font-semibold text-zinc-500 uppercase tracking-widest text-[10px]">Research-Informed</span>
+          <span className="px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-400 font-mono border border-zinc-200">Geodo</span>
+          <span>·</span>
+          <span>Case triage ranked by risk</span>
+          <span>·</span>
+          <span>Evidence-backed alerts</span>
+          <span>·</span>
+          <span>Downloadable case reports</span>
+        </div>
+      </div>
     </div>
   );
 }

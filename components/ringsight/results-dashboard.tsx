@@ -43,14 +43,18 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
   return (
     <div className="min-h-screen bg-zinc-50">
       {/* Top bar */}
-      <div className="bg-white border-b border-zinc-200 px-6 py-3 flex items-center justify-between">
-        <div>
+      <div className="bg-white border-b border-zinc-200 px-6 py-3 flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3 flex-wrap">
           <span className="font-bold text-zinc-900 text-lg">RingSight</span>
-          <span className="ml-2 text-xs text-zinc-400 font-mono">{engine.run_id}</span>
+          <span className="text-xs text-zinc-400 font-mono">{engine.run_id}</span>
+          <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-zinc-400 px-2 py-0.5 rounded-full border border-zinc-200 bg-zinc-50">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            Research-informed by Geodo
+          </span>
         </div>
         <button
           onClick={onReset}
-          className="text-xs text-zinc-500 hover:text-zinc-900 px-3 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors"
+          className="text-xs text-zinc-500 hover:text-zinc-900 px-3 py-1.5 rounded-lg hover:bg-zinc-100 transition-colors shrink-0"
         >
           New analysis
         </button>
