@@ -7,6 +7,7 @@ import { EvidenceList } from './evidence-list';
 import { ActionPanel } from './action-panel';
 import { CogneeTimeline } from './cognee-timeline';
 import { DownloadReportButton } from './download-report-button';
+import { Linkify } from './linkify';
 import type { RankedFraudCase } from '@/lib/agents/agent2/types';
 import type { CaseActionPlan } from '@/lib/agents/agent3/types';
 import type { Agent1Finding } from '@/lib/agents/agent1/types';
@@ -86,7 +87,9 @@ export function CaseDetail({
         </div>
 
         {report && (
-          <p className="text-sm text-zinc-600 mt-4 leading-relaxed">{report.executive_summary}</p>
+          <p className="text-sm text-zinc-600 mt-4 leading-relaxed">
+            <Linkify text={report.executive_summary} onViewInDocs={q => onViewInDocs?.(q)} />
+          </p>
         )}
       </div>
 
@@ -126,8 +129,12 @@ export function CaseDetail({
           <div className="space-y-3">
             {report.key_evidence.map((ev, i) => (
               <div key={i} className="bg-zinc-50 rounded-lg p-3">
-                <p className="text-xs font-semibold text-zinc-800">{ev.heading}</p>
-                <p className="text-xs text-zinc-600 mt-1">{ev.body}</p>
+                <p className="text-xs font-semibold text-zinc-800">
+                  <Linkify text={ev.heading} onViewInDocs={q => onViewInDocs?.(q)} />
+                </p>
+                <p className="text-xs text-zinc-600 mt-1">
+                  <Linkify text={ev.body} onViewInDocs={q => onViewInDocs?.(q)} />
+                </p>
               </div>
             ))}
           </div>
@@ -137,7 +144,9 @@ export function CaseDetail({
       {/* Network narrative */}
       {report?.network_summary && (
         <Section title="Network Behavior">
-          <p className="text-sm text-zinc-600">{report.network_summary}</p>
+          <p className="text-sm text-zinc-600">
+            <Linkify text={report.network_summary} onViewInDocs={q => onViewInDocs?.(q)} />
+          </p>
         </Section>
       )}
 
@@ -178,7 +187,7 @@ export function CaseDetail({
       {report?.limitations && (
         <div className="border border-zinc-200 rounded-xl p-4 bg-amber-50">
           <p className="text-xs font-semibold text-amber-700 uppercase tracking-wide mb-1">Limitations</p>
-          <p className="text-xs text-amber-800">{report.limitations}</p>
+          <p className="text-xs text-amber-800"><Linkify text={report.limitations} onViewInDocs={q => onViewInDocs?.(q)} /></p>
         </div>
       )}
 
