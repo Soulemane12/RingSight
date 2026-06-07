@@ -59,7 +59,7 @@ function deriveEngineStatus(events: AnalysisEvent[]): 'waiting' | 'running' | 'd
   return 'waiting';
 }
 
-function getEngineData(events: AnalysisEvent()) {
+function getEngineData(events: AnalysisEvent[]) {
   const ev = events.find(e => e.type === 'engine_completed');
   if (ev?.type !== 'engine_completed') return null;
   return { metrics: ev.metrics, highlights: ev.highlights };
