@@ -11,6 +11,19 @@ export interface AccountNodeData {
   transactionCount: number;
   sentAmount: number;
   receivedAmount: number;
+  caseFlowAmount: number;
+  totalTxns: number;
+  internalSentCount: number;
+  internalSentAmount: number;
+  internalSentPct: number;
+  uniqueInternalReceivers: number;
+  nightTxnPct: number;
+  amountBandPct: number;
+  topMerchantCategory: string | null;
+  topCategoryPct: number;
+  deviceCount: number;
+  ipRegionCount: number;
+  accountAgeDaysAtFirstTxn: number;
   flags: string[];
   [key: string]: unknown;
 }
@@ -25,10 +38,10 @@ export interface EdgeData {
   [key: string]: unknown;
 }
 
-const NODE_W = 160;
-const NODE_H = 100;
-const H_GAP = 220;  // horizontal gap between nodes in a chain
-const V_GAP = 180;  // vertical gap for branches
+const NODE_W = 240;
+const NODE_H = 190;
+const H_GAP = NODE_W + 140;  // horizontal gap between nodes in a chain
+const V_GAP = NODE_H + 110;  // vertical gap for branches
 
 /**
  * Build a directed graph layout.
@@ -63,6 +76,8 @@ export function buildGraphElements(
   const accounts = Array.from(accountSet);
   const nodes: Node<AccountNodeData>[] = accounts.map(id => {
     const sig = accountMap.get(id);
+    const sentAmount = sentMap.get(id) ?? 0;
+    const receivedAmount = recvMap.get(id) ?? 0;
     return {
       id,
       type: 'accountNode',
@@ -73,8 +88,21 @@ export function buildGraphElements(
         riskLabel: sig?.risk_label ?? 'Low',
         isConnector: connectorSet.has(id),
         transactionCount: countMap.get(id) ?? 0,
-        sentAmount: sentMap.get(id) ?? 0,
-        receivedAmount: recvMap.get(id) ?? 0,
+        sentAmount,
+        receivedAmount,
+        caseFlowAmount: sentAmount + receivedAmount,
+        totalTxns: sig?.total_txns ?? 0,
+        internalSentCount: sig?.internal_sent_count ?? 0,
+        internalSentAmount: sig?.internal_sent_amount ?? sentAmount,
+        internalSentPct: sig?.internal_sent_pct ?? 0,
+        uniqueInternalReceivers: sig?.unique_internal_receivers ?? 0,
+        nightTxnPct: sig?.night_txn_pct ?? 0,
+        amountBandPct: sig?.amount_band_400_900_pct ?? 0,
+        topMerchantCategory: sig?.top_merchant_category ?? null,
+        topCategoryPct: sig?.top_category_pct ?? 0,
+        deviceCount: sig?.device_count ?? 0,
+        ipRegionCount: sig?.ip_region_count ?? 0,
+        accountAgeDaysAtFirstTxn: sig?.account_age_days_at_first_txn ?? 0,
         flags: sig?.risk_flags ?? [],
       },
     };
@@ -166,7 +194,7 @@ function computePositions(
     }
   } else {
     // Wide circular layout
-    const RADIUS = Math.max(180, n * 80);
+    const RADIUS = Math.max(NODE_W + 120, n * 145);
     const CX = 0;
     const CY = 0;
     if (n === 1) {

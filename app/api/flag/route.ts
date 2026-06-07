@@ -70,7 +70,7 @@ export async function POST(request: NextRequest) {
           <td style="padding: 8px 0; font-size: 13px; color: #09090b;">${severity}</td>
         </tr>
         <tr style="border-top: 1px solid #f4f4f5;">
-          <td style="padding: 8px 0; color: #71717a; font-size: 13px;">Total Exposure</td>
+          <td style="padding: 8px 0; color: #71717a; font-size: 13px;">Funds at Risk</td>
           <td style="padding: 8px 0; font-size: 13px; font-weight: 700; color: #09090b;">${formatMoney(total_exposure)}</td>
         </tr>
         <tr style="border-top: 1px solid #f4f4f5;">

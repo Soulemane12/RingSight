@@ -45,7 +45,7 @@ export function NetworkGraph({
   );
 
   return (
-    <div className="w-full rounded-xl border border-zinc-200 overflow-hidden bg-zinc-50" style={{ height: 480 }}>
+    <div className="w-full rounded-xl border border-zinc-200 overflow-hidden bg-zinc-50" style={{ height: 680 }}>
       <ReactFlow
         nodes={nodes}
         edges={edges}

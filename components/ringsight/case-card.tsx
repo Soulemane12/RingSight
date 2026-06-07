@@ -48,7 +48,7 @@ export function CaseCard({ caseItem, action, isSelected, onClick }: CaseCardProp
 
       <div className={`flex items-center gap-3 mt-3 flex-wrap text-xs ${isSelected ? 'text-zinc-300' : 'text-zinc-500'}`}>
         <span className="font-semibold">{caseItem.risk_score}/100</span>
-        <span>{formatMoneyFull(caseItem.total_exposure)} exposure</span>
+        <span>{formatMoneyFull(caseItem.total_exposure)} funds at risk</span>
         <span>{caseItem.accounts.length} accounts</span>
       </div>
 

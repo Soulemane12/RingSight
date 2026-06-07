@@ -1,8 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Flag, Loader, CheckCircle } from 'lucide-react';
-import { formatMoneyFull, severityColor, actionLabel, urgencyBadge } from '@/lib/ui/format';
+import { CheckCircle } from 'lucide-react';
+import { formatMoneyFull, severityColor, urgencyBadge } from '@/lib/ui/format';
 import { NetworkGraph } from './network-graph';
 import { EvidenceList } from './evidence-list';
 import { ActionPanel } from './action-panel';
@@ -27,6 +26,7 @@ interface CaseDetailProps {
   allAccounts: AccountSignal[];
   allRelationships: RelationshipSignal[];
   allTransactions: NormalizedRow[];
+  autoFlagged: boolean;
 }
 
 export function CaseDetail({
@@ -41,32 +41,9 @@ export function CaseDetail({
   allAccounts,
   allRelationships,
   allTransactions,
+  autoFlagged,
 }: CaseDetailProps) {
   const colors = severityColor(caseItem.severity);
-  const [flagState, setFlagState] = useState<'idle' | 'loading' | 'sent' | 'error'>('idle');
-
-  async function handleFlag() {
-    setFlagState('loading');
-    try {
-      const res = await fetch('/api/flag', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          case_id: caseItem.case_id,
-          title: caseItem.title,
-          risk_score: caseItem.risk_score,
-          severity: caseItem.severity,
-          total_exposure: caseItem.total_exposure,
-          accounts: caseItem.accounts,
-          recommended_action: action?.recommended_action,
-          urgency: action?.urgency,
-        }),
-      });
-      setFlagState(res.ok ? 'sent' : 'error');
-    } catch {
-      setFlagState('error');
-    }
-  }
 
   return (
     <div className="flex flex-col gap-5 min-h-0">
@@ -84,26 +61,25 @@ export function CaseDetail({
                   {action.urgency} urgency
                 </span>
               )}
-              {flagState === 'sent' && (
+              {autoFlagged && (
                 <span className="flex items-center gap-1 text-xs px-2 py-0.5 rounded-full font-medium bg-amber-100 text-amber-700 border border-amber-200">
                   <CheckCircle className="w-3 h-3" />
-                  Flagged for human review
+                  Auto-flagged for review
                 </span>
               )}
             </div>
             <h2 className="text-xl font-bold text-zinc-900 mt-1">{caseItem.title}</h2>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
-            <FlagButton state={flagState} onClick={handleFlag} />
             {report && (
               <DownloadReportButton caseId={caseItem.case_id} markdown={report.markdown} />
             )}
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-4 mt-4">
+        <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-3">
           <Stat label="Risk Score" value={`${caseItem.risk_score}/100`} highlight />
-          <Stat label="Exposure" value={formatMoneyFull(caseItem.total_exposure)} />
+          <Stat label="Funds at Risk" value={formatMoneyFull(caseItem.total_exposure)} />
           <Stat label="Accounts" value={String(caseItem.accounts.length)} />
         </div>
 
@@ -115,6 +91,7 @@ export function CaseDetail({
       {/* Network graph */}
       <Section title="Account Network">
         <NetworkGraph
+          key={caseItem.case_id}
           caseItem={caseItem}
           allAccounts={allAccounts}
           allRelationships={allRelationships}
@@ -209,33 +186,10 @@ export function CaseDetail({
 
 function Stat({ label, value, highlight }: { label: string; value: string; highlight?: boolean }) {
   return (
-    <div>
-      <p className="text-xs text-zinc-500">{label}</p>
-      <p className={`text-lg font-bold ${highlight ? 'text-zinc-900' : 'text-zinc-800'}`}>{value}</p>
+    <div className={`rounded-lg border px-4 py-3 ${highlight ? 'border-red-200 bg-red-50' : 'border-zinc-200 bg-zinc-50'}`}>
+      <p className={`text-xs font-bold uppercase tracking-wide ${highlight ? 'text-red-600' : 'text-zinc-500'}`}>{label}</p>
+      <p className={`mt-1 font-mono text-2xl font-black leading-none sm:text-3xl ${highlight ? 'text-red-700' : 'text-zinc-900'}`}>{value}</p>
     </div>
-  );
-}
-
-function FlagButton({ state, onClick }: { state: 'idle' | 'loading' | 'sent' | 'error'; onClick: () => void }) {
-  if (state === 'sent') return null;
-
-  return (
-    <button
-      onClick={onClick}
-      disabled={state === 'loading'}
-      className={`flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-lg border transition-all ${
-        state === 'error'
-          ? 'bg-red-50 text-red-600 border-red-200 hover:bg-red-100'
-          : 'bg-amber-50 text-amber-700 border-amber-200 hover:bg-amber-100 disabled:opacity-60'
-      }`}
-    >
-      {state === 'loading' ? (
-        <Loader className="w-3.5 h-3.5 animate-spin" />
-      ) : (
-        <Flag className="w-3.5 h-3.5" />
-      )}
-      {state === 'error' ? 'Retry — send failed' : state === 'loading' ? 'Sending…' : 'Flag for Human Review'}
-    </button>
   );
 }
 
