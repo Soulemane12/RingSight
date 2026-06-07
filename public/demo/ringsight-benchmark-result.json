@@ -1,0 +1,498 @@
+{
+  "engine": {
+    "run_id": "RUN-20260607-DEMO",
+    "metrics": {
+      "row_count": 5000,
+      "account_count": 294,
+      "internal_transfer_count": 250,
+      "date_range": { "start": "2026-01-01", "end": "2026-06-01" }
+    },
+    "accounts": [
+      { "account_id": "AC-0001", "total_txns": 42, "internal_sent_count": 38, "internal_sent_amount": 24680, "internal_sent_pct": 0.91, "unique_internal_receivers": 2, "night_txn_pct": 0.72, "amount_band_400_900_pct": 0.88, "top_merchant_category": "TRANSFER", "top_category_pct": 0.91, "device_count": 1, "ip_region_count": 1, "account_open_date": "2026-01-10", "first_txn_date": "2026-01-12", "account_age_days_at_first_txn": 2, "risk_flags": ["NEW_ACCOUNT_ACTIVITY","STRUCTURED_AMOUNT_RANGE","NIGHT_ACTIVITY_CONCENTRATION","LOW_DEVICE_REGION_VARIANCE"], "risk_score": 78, "risk_label": "High" },
+      { "account_id": "AC-0002", "total_txns": 35, "internal_sent_count": 30, "internal_sent_amount": 22068, "internal_sent_pct": 0.86, "unique_internal_receivers": 1, "night_txn_pct": 0.69, "amount_band_400_900_pct": 0.83, "top_merchant_category": "TRANSFER", "top_category_pct": 0.86, "device_count": 1, "ip_region_count": 1, "account_open_date": "2026-01-11", "first_txn_date": "2026-01-13", "account_age_days_at_first_txn": 2, "risk_flags": ["NEW_ACCOUNT_ACTIVITY","STRUCTURED_AMOUNT_RANGE","NIGHT_ACTIVITY_CONCENTRATION"], "risk_score": 75, "risk_label": "High" },
+      { "account_id": "AC-0005", "total_txns": 28, "internal_sent_count": 25, "internal_sent_amount": 5000, "internal_sent_pct": 0.89, "unique_internal_receivers": 2, "night_txn_pct": 0.61, "amount_band_400_900_pct": 0.78, "top_merchant_category": "TRANSFER", "top_category_pct": 0.89, "device_count": 1, "ip_region_count": 1, "account_open_date": "2026-01-15", "first_txn_date": "2026-01-16", "account_age_days_at_first_txn": 1, "risk_flags": ["NEW_ACCOUNT_ACTIVITY","STRUCTURED_AMOUNT_RANGE"], "risk_score": 70, "risk_label": "High" },
+      { "account_id": "AC-0010", "total_txns": 18, "internal_sent_count": 14, "internal_sent_amount": 83017, "internal_sent_pct": 0.78, "unique_internal_receivers": 1, "night_txn_pct": 0.22, "amount_band_400_900_pct": 0.17, "top_merchant_category": "TRANSFER", "top_category_pct": 0.78, "device_count": 2, "ip_region_count": 2, "account_open_date": "2025-06-01", "first_txn_date": "2025-07-01", "account_age_days_at_first_txn": 30, "risk_flags": ["HIGH_INTERNAL_TRANSFER_RATIO","REPEATED_EDGE"], "risk_score": 82, "risk_label": "High" },
+      { "account_id": "AC-0011", "total_txns": 14, "internal_sent_count": 0, "internal_sent_amount": 0, "internal_sent_pct": 0, "unique_internal_receivers": 0, "night_txn_pct": 0.14, "amount_band_400_900_pct": 0.07, "top_merchant_category": "RETAIL", "top_category_pct": 0.57, "device_count": 3, "ip_region_count": 2, "account_open_date": "2025-03-01", "first_txn_date": "2025-04-01", "account_age_days_at_first_txn": 31, "risk_flags": [], "risk_score": 45, "risk_label": "Medium" }
+    ],
+    "relationships": [
+      { "edge_id": "REL-0001", "sender": "AC-0001", "receiver": "AC-0002", "transaction_count": 41, "total_exposure": 24762, "avg_amount": 604, "min_amount": 401, "max_amount": 899, "first_txn": "2026-01-13T02:15:00Z", "last_txn": "2026-05-20T03:45:00Z", "night_pct": 0.74, "amount_band_400_900_pct": 0.91, "top_category": "TRANSFER", "top_category_pct": 1.0, "active_day_count": 41, "most_common_day_gap": 4, "cadence_strength": 0.83, "risk_flags": ["REPEATED_EDGE","NIGHT_TRANSFER_PATTERN","STRUCTURED_SMALL_AMOUNTS","SIX_DAY_CADENCE","CATEGORY_LOCKED"], "risk_score": 90, "risk_label": "Critical" },
+      { "edge_id": "REL-0002", "sender": "AC-0002", "receiver": "AC-0005", "transaction_count": 8, "total_exposure": 26986, "avg_amount": 3373, "min_amount": 1800, "max_amount": 5200, "first_txn": "2026-02-01T14:00:00Z", "last_txn": "2026-04-10T15:00:00Z", "night_pct": 0.0, "amount_band_400_900_pct": 0.0, "top_category": "TRANSFER", "top_category_pct": 1.0, "active_day_count": 8, "most_common_day_gap": 12, "cadence_strength": 0.63, "risk_flags": ["REPEATED_EDGE","CATEGORY_LOCKED","HIGH_EDGE_EXPOSURE"], "risk_score": 72, "risk_label": "High" },
+      { "edge_id": "REL-0003", "sender": "AC-0010", "receiver": "AC-0011", "transaction_count": 14, "total_exposure": 83017, "avg_amount": 5930, "min_amount": 3200, "max_amount": 9800, "first_txn": "2025-07-01T10:00:00Z", "last_txn": "2026-03-15T11:00:00Z", "night_pct": 0.21, "amount_band_400_900_pct": 0.07, "top_category": "TRANSFER", "top_category_pct": 1.0, "active_day_count": 14, "most_common_day_gap": 18, "cadence_strength": 0.71, "risk_flags": ["REPEATED_EDGE","HIGH_EDGE_EXPOSURE","CATEGORY_LOCKED"], "risk_score": 85, "risk_label": "Critical" }
+    ],
+    "network_components": [
+      { "component_id": "COMP-0001", "accounts": ["AC-0001","AC-0002","AC-0005"], "edge_count": 2, "transaction_count": 38, "total_exposure": 24748, "avg_edge_score": 79, "hub_accounts": ["AC-0002"], "chains": [["AC-0001","AC-0002","AC-0005"]], "cycles": [], "risk_score": 92, "risk_label": "Critical" },
+      { "component_id": "COMP-0002", "accounts": ["AC-0010","AC-0011"], "edge_count": 1, "transaction_count": 14, "total_exposure": 83017, "avg_edge_score": 85, "hub_accounts": [], "chains": [], "cycles": [], "risk_score": 88, "risk_label": "Critical" }
+    ],
+    "findings": [
+      { "finding_id": "FIND-C-00001", "type": "COMPONENT", "subject_id": "COMP-0001", "risk_label": "Critical", "risk_score": 92, "flags": ["REPEATED_EDGE","NIGHT_TRANSFER_PATTERN","STRUCTURED_SMALL_AMOUNTS"], "summary": "3-account layering chain with structured nightly transfers" },
+      { "finding_id": "FIND-C-00002", "type": "COMPONENT", "subject_id": "COMP-0002", "risk_label": "Critical", "risk_score": 88, "flags": ["REPEATED_EDGE","HIGH_EDGE_EXPOSURE"], "summary": "High-exposure repeated transfer pair" }
+    ],
+    "transactions": [
+      { "txn_id": "TX-00001", "account_id": "AC-0001", "counterparty_id": "AC-0002", "amount": 564, "merchant_category": "TRANSFER", "device_id": "DEV-001", "ip_region": "US-CA", "timestamp_dt": "2026-01-13T02:15:00.000Z", "account_open_dt": "2026-01-10T00:00:00.000Z", "hour": 2, "date": "2026-01-13", "is_internal_transfer": true, "is_night": true, "amount_band_400_900": true },
+      { "txn_id": "TX-00002", "account_id": "AC-0001", "counterparty_id": "AC-0002", "amount": 621, "merchant_category": "TRANSFER", "device_id": "DEV-001", "ip_region": "US-CA", "timestamp_dt": "2026-01-17T03:10:00.000Z", "account_open_dt": "2026-01-10T00:00:00.000Z", "hour": 3, "date": "2026-01-17", "is_internal_transfer": true, "is_night": true, "amount_band_400_900": true },
+      { "txn_id": "TX-00010", "account_id": "AC-0010", "counterparty_id": "AC-0011", "amount": 5930, "merchant_category": "TRANSFER", "device_id": "DEV-010", "ip_region": "US-TX", "timestamp_dt": "2025-07-01T10:00:00.000Z", "account_open_dt": "2025-06-01T00:00:00.000Z", "hour": 10, "date": "2025-07-01", "is_internal_transfer": true, "is_night": false, "amount_band_400_900": false }
+    ]
+  },
+  "agent1": {
+    "run_id": "RUN-20260607-DEMO",
+    "agent": "pattern-finder",
+    "findings": [
+      {
+        "finding_id": "A1-FIND-00001",
+        "pattern_type": "STRUCTURED_SMURFING",
+        "title": "Structured Nightly Smurfing — AC-0001 → AC-0002",
+        "summary": "35 transfers between AC-0001 and AC-0002 consistently stay within the $400–$900 band, 74% occurring between midnight and 5am over 4 months.",
+        "source_entity_type": "RELATIONSHIP",
+        "source_entity_id": "REL-0001",
+        "accounts": ["AC-0001","AC-0002"],
+        "relationship_ids": ["REL-0001"],
+        "transaction_ids": ["TX-00001","TX-00002"],
+        "exposure": 19748,
+        "engine_risk_score": 90,
+        "engine_risk_label": "Critical",
+        "evidence": [
+          {
+            "signal_name": "Structured Small Transfers",
+            "measured_value": "91% in $400–$900 band",
+            "threshold": "> 70%",
+            "explanation": "91% of the 35 transfers between AC-0001 and AC-0002 fell within $400–$900, consistent with amount structuring to evade detection thresholds.",
+            "supporting_transaction_ids": ["TX-00001","TX-00002"]
+          },
+          {
+            "signal_name": "Night Transfer Concentration",
+            "measured_value": "74% nighttime",
+            "threshold": "> 60%",
+            "explanation": "74% of transfers occurred between midnight and 5am, a strong indicator of deliberate timing to avoid human review.",
+            "supporting_transaction_ids": ["TX-00001","TX-00002"]
+          },
+          {
+            "signal_name": "Cadence Regularity",
+            "measured_value": "4-day gap, strength 0.83",
+            "threshold": "strength > 0.7",
+            "explanation": "Transfers follow a near-perfect 4-day cadence, suggesting automated or scripted transfer behavior.",
+            "supporting_transaction_ids": ["TX-00001","TX-00002"]
+          }
+        ],
+        "confidence": 0.92
+      },
+      {
+        "finding_id": "A1-FIND-00002",
+        "pattern_type": "LAYERING_CHAIN",
+        "title": "Layering Chain — AC-0001 → AC-0002 → AC-0005",
+        "summary": "Funds move from AC-0001 through AC-0002 to AC-0005, a classic layering pattern across 3 linked accounts opened within days of each other.",
+        "source_entity_type": "COMPONENT",
+        "source_entity_id": "COMP-0001",
+        "accounts": ["AC-0001","AC-0002","AC-0005"],
+        "relationship_ids": ["REL-0001","REL-0002"],
+        "transaction_ids": ["TX-00001","TX-00002"],
+        "exposure": 24748,
+        "engine_risk_score": 92,
+        "engine_risk_label": "Critical",
+        "evidence": [
+          {
+            "signal_name": "3-Node Chain",
+            "measured_value": "AC-0001 → AC-0002 → AC-0005",
+            "threshold": "chain length ≥ 3",
+            "explanation": "A directed transfer chain passes funds through three accounts, each opened within days of each other in January 2026.",
+            "supporting_transaction_ids": ["TX-00001","TX-00002"]
+          },
+          {
+            "signal_name": "New Account Cluster",
+            "measured_value": "All accounts < 5 days old at first transfer",
+            "threshold": "< 30 days",
+            "explanation": "All three accounts began transacting within 2 days of account opening, a strong new-account burst indicator.",
+            "supporting_transaction_ids": ["TX-00001"]
+          }
+        ],
+        "confidence": 0.90
+      },
+      {
+        "finding_id": "A1-FIND-00003",
+        "pattern_type": "HIGH_VELOCITY_PASS_THROUGH",
+        "title": "High-Exposure Repeated Transfer — AC-0010 → AC-0011",
+        "summary": "14 large transfers totalling $83,017 from AC-0010 to AC-0011 with consistent cadence, all categorised as internal transfers.",
+        "source_entity_type": "RELATIONSHIP",
+        "source_entity_id": "REL-0003",
+        "accounts": ["AC-0010","AC-0011"],
+        "relationship_ids": ["REL-0003"],
+        "transaction_ids": ["TX-00010"],
+        "exposure": 83017,
+        "engine_risk_score": 85,
+        "engine_risk_label": "Critical",
+        "evidence": [
+          {
+            "signal_name": "High Edge Exposure",
+            "measured_value": "$83,017",
+            "threshold": "> $25,000",
+            "explanation": "14 transfers between AC-0010 and AC-0011 total $83,017 — significantly above the high-exposure threshold.",
+            "supporting_transaction_ids": ["TX-00010"]
+          },
+          {
+            "signal_name": "Repeated Edge",
+            "measured_value": "14 transactions",
+            "threshold": "> 5",
+            "explanation": "The same sender-receiver pair is used for 14 transfers, indicating a structured repeated-edge pattern.",
+            "supporting_transaction_ids": ["TX-00010"]
+          }
+        ],
+        "confidence": 0.87
+      }
+    ],
+    "summary": "3 findings identified: structured smurfing network, layering chain, and high-exposure repeated pair.",
+    "processed_at": "2026-06-07T10:00:00Z",
+    "llm_model": "gpt-4o",
+    "cognee_stored": true
+  },
+  "agent2": {
+    "agent": "agent_2_case_ranker",
+    "run_id": "RUN-20260607-DEMO",
+    "status": "completed",
+    "started_at": "2026-06-07T10:01:00Z",
+    "completed_at": "2026-06-07T10:01:30Z",
+    "input_summary": {
+      "agent1_finding_count": 3,
+      "component_count": 2,
+      "relationship_count": 3,
+      "cognee_recalled": true
+    },
+    "summary": "3 fraud cases ranked by risk score. CASE-001 is the highest priority with a critical smurfing network.",
+    "cases": [
+      {
+        "case_id": "CASE-001",
+        "run_id": "RUN-20260607-DEMO",
+        "rank": 1,
+        "case_type": "COORDINATED_TRANSFER_NETWORK",
+        "title": "Structured Smurfing Network",
+        "summary": "A 3-account coordinated network (AC-0001, AC-0002, AC-0005) using structured nightly transfers in the $400–$900 band with a 4-day cadence. All accounts opened within days of each other.",
+        "severity": "Critical",
+        "risk_score": 99,
+        "confidence": 0.92,
+        "accounts": ["AC-0001","AC-0002","AC-0005"],
+        "relationship_ids": ["REL-0001","REL-0002"],
+        "transaction_ids": ["TX-00001","TX-00002"],
+        "total_exposure": 51748,
+        "transaction_count": 49,
+        "connector_accounts": ["AC-0002"],
+        "chains": [["AC-0001","AC-0002","AC-0005"]],
+        "cycles": [],
+        "ranking_reasons": [
+          "Critical component risk score (92)",
+          "Structured nightly transfers across 3-account layering chain",
+          "All accounts opened within 5 days, first transactions within 2 days of opening",
+          "4-day cadence strength 0.83 — highly automated behavior"
+        ],
+        "evidence": [
+          {
+            "evidence_id": "A2-EV-00001",
+            "source_finding_id": "A1-FIND-00001",
+            "evidence_type": "relationship",
+            "title": "Structured Smurfing",
+            "explanation": "91% of transfers in $400–$900 band with 74% nighttime rate",
+            "accounts": ["AC-0001","AC-0002"],
+            "relationship_ids": ["REL-0001"],
+            "transaction_ids": ["TX-00001","TX-00002"],
+            "exposure": 19748,
+            "risk_score": 90
+          }
+        ],
+        "source_agent": "agent_2_case_ranker"
+      },
+      {
+        "case_id": "CASE-002",
+        "run_id": "RUN-20260607-DEMO",
+        "rank": 2,
+        "case_type": "HIGH_EXPOSURE_NETWORK",
+        "title": "High-Exposure Layering Chain",
+        "summary": "AC-0010 transferred $83,017 to AC-0011 across 14 transactions, all internal transfers with consistent 18-day cadence. High exposure with no legitimate explanation.",
+        "severity": "Critical",
+        "risk_score": 88,
+        "confidence": 0.87,
+        "accounts": ["AC-0010","AC-0011"],
+        "relationship_ids": ["REL-0003"],
+        "transaction_ids": ["TX-00010"],
+        "total_exposure": 83017,
+        "transaction_count": 14,
+        "connector_accounts": [],
+        "chains": [],
+        "cycles": [],
+        "ranking_reasons": [
+          "Highest total exposure across all cases at $83,017",
+          "14 repeated transfers on the same edge with 71% cadence strength",
+          "Risk score 85 — Critical classification"
+        ],
+        "evidence": [
+          {
+            "evidence_id": "A2-EV-00002",
+            "source_finding_id": "A1-FIND-00003",
+            "evidence_type": "relationship",
+            "title": "High-Exposure Repeated Transfer",
+            "explanation": "$83,017 across 14 transfers between the same account pair",
+            "accounts": ["AC-0010","AC-0011"],
+            "relationship_ids": ["REL-0003"],
+            "transaction_ids": ["TX-00010"],
+            "exposure": 83017,
+            "risk_score": 85
+          }
+        ],
+        "source_agent": "agent_2_case_ranker"
+      },
+      {
+        "case_id": "CASE-003",
+        "run_id": "RUN-20260607-DEMO",
+        "rank": 3,
+        "case_type": "REPEATED_TRANSFER_PAIR",
+        "title": "Repeated Transfer Pair — AC-0001",
+        "summary": "AC-0001 shows repeated internal transfer behavior across 42 transactions. While part of the smurfing network, this case isolates the originating account activity.",
+        "severity": "Medium",
+        "risk_score": 64,
+        "confidence": 0.71,
+        "accounts": ["AC-0001"],
+        "relationship_ids": ["REL-0001"],
+        "transaction_ids": ["TX-00001","TX-00002"],
+        "total_exposure": 26986,
+        "transaction_count": 35,
+        "connector_accounts": [],
+        "chains": [],
+        "cycles": [],
+        "ranking_reasons": [
+          "Score 64 — below escalation threshold",
+          "Evidence overlaps with CASE-001 but exposure isolated to originating account"
+        ],
+        "evidence": [],
+        "source_agent": "agent_2_case_ranker"
+      }
+    ],
+    "cognee": {
+      "dataset_name": "agent-2-ranked-cases-run-20260607-demo",
+      "recalled_agent_1": true,
+      "stored_agent_2": true,
+      "stored_at": "2026-06-07T10:01:30Z",
+      "error": null
+    }
+  },
+  "agent3": {
+    "agent": "agent_3_action_recommender",
+    "run_id": "RUN-20260607-DEMO",
+    "status": "completed",
+    "started_at": "2026-06-07T10:02:00Z",
+    "completed_at": "2026-06-07T10:02:30Z",
+    "input_summary": {
+      "case_count": 3,
+      "critical_case_count": 2,
+      "cognee_recalled_agent_2": true
+    },
+    "summary": "3 action plans created. CASE-001 and CASE-002 require immediate escalation.",
+    "actions": [
+      {
+        "action_id": "A3-ACTION-00001",
+        "run_id": "RUN-20260607-DEMO",
+        "case_id": "CASE-001",
+        "rank": 1,
+        "case_title": "Structured Smurfing Network",
+        "recommended_action": "TEMPORARILY_RESTRICT_AND_ESCALATE",
+        "urgency": "Immediate",
+        "plain_english_action": "Recommend temporarily restricting outgoing transfers from AC-0001, AC-0002, and AC-0005 while escalating to the fraud investigation team for immediate review. The structured nightly transfers and 4-day cadence pattern are consistent with organised smurfing activity.",
+        "analyst_instructions": [
+          "Place a 48-hour hold on outgoing transfers from AC-0001, AC-0002, and AC-0005.",
+          "Escalate to Tier 2 fraud investigations with this report attached.",
+          "Review account opening documents for all three accounts — opened within 5 days suggests coordinated setup.",
+          "Check for any linked phone numbers, email addresses, or device IDs across the three accounts.",
+          "Do not notify the account holders until investigation is complete."
+        ],
+        "reasons": [
+          {
+            "reason_code": "CRITICAL_RISK_SCORE",
+            "explanation": "Case risk score 99 exceeds the 90-point critical threshold requiring immediate action.",
+            "supporting_finding_ids": ["A1-FIND-00001","A1-FIND-00002"],
+            "supporting_relationship_ids": ["REL-0001","REL-0002"],
+            "supporting_transaction_ids": ["TX-00001","TX-00002"]
+          },
+          {
+            "reason_code": "STRUCTURED_SMALL_TRANSFERS",
+            "explanation": "91% of transfers fall in the $400–$900 band across 35 transactions — consistent with structuring.",
+            "supporting_finding_ids": ["A1-FIND-00001"],
+            "supporting_relationship_ids": ["REL-0001"],
+            "supporting_transaction_ids": ["TX-00001","TX-00002"]
+          }
+        ],
+        "risk_score": 99,
+        "total_exposure": 51748,
+        "accounts": ["AC-0001","AC-0002","AC-0005"],
+        "confidence": 0.92,
+        "source_agent": "agent_3_action_recommender"
+      },
+      {
+        "action_id": "A3-ACTION-00002",
+        "run_id": "RUN-20260607-DEMO",
+        "case_id": "CASE-002",
+        "rank": 2,
+        "case_title": "High-Exposure Layering Chain",
+        "recommended_action": "TEMPORARILY_RESTRICT_AND_ESCALATE",
+        "urgency": "Immediate",
+        "plain_english_action": "Recommend temporarily restricting outgoing transfers from AC-0010 while escalating for immediate fraud review. The $83,017 exposure across 14 repeated transfers warrants urgent attention.",
+        "analyst_instructions": [
+          "Place a 48-hour hold on outgoing transfers from AC-0010.",
+          "Request source-of-funds documentation for the $83,017 in transfers.",
+          "Verify the relationship between AC-0010 and AC-0011 — are they known counterparties?",
+          "Escalate to SAR filing team if no legitimate business purpose is established within 24 hours."
+        ],
+        "reasons": [
+          {
+            "reason_code": "HIGH_TOTAL_EXPOSURE",
+            "explanation": "Total exposure of $83,017 exceeds the $50,000 high-exposure threshold.",
+            "supporting_finding_ids": ["A1-FIND-00003"],
+            "supporting_relationship_ids": ["REL-0003"],
+            "supporting_transaction_ids": ["TX-00010"]
+          }
+        ],
+        "risk_score": 88,
+        "total_exposure": 83017,
+        "accounts": ["AC-0010","AC-0011"],
+        "confidence": 0.87,
+        "source_agent": "agent_3_action_recommender"
+      },
+      {
+        "action_id": "A3-ACTION-00003",
+        "run_id": "RUN-20260607-DEMO",
+        "case_id": "CASE-003",
+        "rank": 3,
+        "case_title": "Repeated Transfer Pair — AC-0001",
+        "recommended_action": "REQUEST_ENHANCED_REVIEW",
+        "urgency": "Medium",
+        "plain_english_action": "Request enhanced KYC review for AC-0001. While the case score (64) does not meet the immediate escalation threshold, the account's repeated internal transfer behaviour warrants closer scrutiny.",
+        "analyst_instructions": [
+          "Schedule enhanced KYC review for AC-0001 within 5 business days.",
+          "Cross-reference with CASE-001 findings — this account is the originating node in the smurfing chain.",
+          "Review the account's stated purpose and expected transaction profile."
+        ],
+        "reasons": [
+          {
+            "reason_code": "REPEATED_TRANSFER_PAIR",
+            "explanation": "AC-0001 shows repeated transfer behaviour but score 64 is below the 65-point INVESTIGATE threshold.",
+            "supporting_finding_ids": ["A1-FIND-00001"],
+            "supporting_relationship_ids": ["REL-0001"],
+            "supporting_transaction_ids": ["TX-00001"]
+          }
+        ],
+        "risk_score": 64,
+        "total_exposure": 26986,
+        "accounts": ["AC-0001"],
+        "confidence": 0.71,
+        "source_agent": "agent_3_action_recommender"
+      }
+    ],
+    "cognee": {
+      "dataset_name": "agent-3-action-plans-RUN-20260607-DEMO",
+      "recalled_agent_2": true,
+      "stored_agent_3": true,
+      "stored_at": "2026-06-07T10:02:30Z",
+      "error": null
+    }
+  },
+  "agent4": {
+    "agent": "agent_4_report_writer",
+    "run_id": "RUN-20260607-DEMO",
+    "status": "completed",
+    "started_at": "2026-06-07T10:03:00Z",
+    "completed_at": "2026-06-07T10:04:00Z",
+    "input_summary": {
+      "case_count": 3,
+      "action_count": 3,
+      "recalled_agent_1": true,
+      "recalled_agent_2": true,
+      "recalled_agent_3": true
+    },
+    "summary": "3 investigation reports generated for 2 critical and 1 medium severity fraud cases totalling $127,513 in suspicious exposure.",
+    "reports": [
+      {
+        "report_id": "A4-REPORT-00001",
+        "run_id": "RUN-20260607-DEMO",
+        "case_id": "CASE-001",
+        "title": "Structured Smurfing Network",
+        "generated_at": "2026-06-07T10:04:00Z",
+        "risk_score": 99,
+        "severity": "Critical",
+        "recommended_action": "TEMPORARILY_RESTRICT_AND_ESCALATE",
+        "urgency": "Immediate",
+        "total_exposure": 51748,
+        "accounts": ["AC-0001","AC-0002","AC-0005"],
+        "relationship_ids": ["REL-0001","REL-0002"],
+        "transaction_ids": ["TX-00001","TX-00002"],
+        "executive_summary": "Three linked accounts (AC-0001, AC-0002, AC-0005) all opened within 5 days of each other are engaged in a coordinated transfer network. 35 transfers from AC-0001 to AC-0002 follow a 4-day cadence with 91% of amounts falling in the $400–$900 structured band and 74% occurring between midnight and 5am. Funds subsequently flow to AC-0005, forming a classic layering chain. Total suspicious exposure is $24,748.",
+        "key_evidence": [
+          { "heading": "Structured Amount Band", "body": "91% of 35 transfers from AC-0001 to AC-0002 fall within $400–$900. This amount range is a known technique to avoid automatic SAR filing thresholds ($1,000+)." },
+          { "heading": "Nighttime Concentration", "body": "74% of transfers occurred between midnight and 5am. This timing is inconsistent with typical retail transaction behaviour and suggests deliberate scheduling." },
+          { "heading": "Automated Cadence", "body": "Transfers follow a near-perfect 4-day cadence (strength: 0.83 of 1.0). This regularity is consistent with scripted or automated transfer behavior." },
+          { "heading": "Layering Chain", "body": "Funds flow AC-0001 → AC-0002 → AC-0005 across three accounts all opened within days of each other in January 2026, consistent with a purpose-built smurfing network." }
+        ],
+        "network_summary": "Three accounts form a directed layering chain. AC-0002 acts as the connector node, receiving from AC-0001 and forwarding to AC-0005. All three accounts show near-zero device and IP region variance.",
+        "action_summary": "Immediately restrict outgoing transfers from all three accounts and escalate to the Tier 2 fraud investigations team. Do not notify account holders until investigation is complete.",
+        "limitations": "This report is based solely on transaction metadata and agent-detected patterns. It does not prove fraud or establish criminal intent, and does not replace a full human investigation. Patterns identified are probabilistic indicators only.",
+        "analyst_signoff": "Reviewed by: ____________________\nDate: ____________________\nDecision: ____________________",
+        "markdown": "# Fraud Investigation Brief — CASE-001\n\n**RingSight** · Run `RUN-20260607-DEMO` · Generated 2026-06-07\n\n---\n\n## Executive Summary\n\nThree linked accounts (AC-0001, AC-0002, AC-0005) all opened within 5 days of each other are engaged in a coordinated transfer network. 35 transfers from AC-0001 to AC-0002 follow a 4-day cadence with 91% of amounts falling in the $400–$900 structured band and 74% occurring between midnight and 5am. Funds subsequently flow to AC-0005, forming a classic layering chain. Total suspicious exposure is $24,748.\n\n**Risk Score:** 99/100 · **Severity:** Critical · **Action:** Restrict & Escalate · **Urgency:** Immediate\n\n---\n\n## Accounts Involved\n\nAC-0001, AC-0002, AC-0005\n\n---\n\n## Recommended Action\n\nImmediately restrict outgoing transfers from all three accounts and escalate to the Tier 2 fraud investigations team. Do not notify account holders until investigation is complete.\n\n---\n\n## Limitations\n\nThis report is based solely on transaction metadata and agent-detected patterns. It does not prove fraud or establish criminal intent, and does not replace a full human investigation.\n\n---\n\n## Analyst Sign-Off\n\nReviewed by: ____________________  \nDate: ____________________  \nDecision: ____________________\n",
+        "source_agent": "agent_4_report_writer"
+      },
+      {
+        "report_id": "A4-REPORT-00002",
+        "run_id": "RUN-20260607-DEMO",
+        "case_id": "CASE-002",
+        "title": "High-Exposure Layering Chain",
+        "generated_at": "2026-06-07T10:04:00Z",
+        "risk_score": 88,
+        "severity": "Critical",
+        "recommended_action": "TEMPORARILY_RESTRICT_AND_ESCALATE",
+        "urgency": "Immediate",
+        "total_exposure": 83017,
+        "accounts": ["AC-0010","AC-0011"],
+        "relationship_ids": ["REL-0003"],
+        "transaction_ids": ["TX-00010"],
+        "executive_summary": "AC-0010 transferred $83,017 to AC-0011 across 14 internal transfers over 8 months. The consistent 18-day cadence (strength 0.71) and high exposure classify this as a high-risk repeated transfer pair requiring immediate escalation. No merchant category is present — all transactions are classified as internal transfers.",
+        "key_evidence": [
+          { "heading": "High Total Exposure", "body": "$83,017 transferred across 14 transactions — significantly above the $50,000 high-exposure threshold. Average transfer size is $5,930." },
+          { "heading": "Repeated Edge", "body": "The same sender-receiver pair (AC-0010 → AC-0011) is used for all 14 transfers, with no variation in counterparty." },
+          { "heading": "Cadence Pattern", "body": "18-day transfer cadence with 71% regularity suggests scheduled or automated transfers rather than ad-hoc behaviour." }
+        ],
+        "network_summary": "Two accounts connected by a single high-exposure directed edge. AC-0010 is the sole sender; AC-0011 is the sole receiver. No further downstream accounts are identified in the dataset.",
+        "action_summary": "Temporarily restrict outgoing transfers from AC-0010 and request source-of-funds documentation for the $83,017 total. Escalate to SAR filing team if no legitimate business purpose is established within 24 hours.",
+        "limitations": "This report is based solely on transaction metadata and agent-detected patterns. It does not prove fraud or replace a full human investigation. The absence of downstream accounts does not mean funds were not further distributed outside this dataset.",
+        "analyst_signoff": "Reviewed by: ____________________\nDate: ____________________\nDecision: ____________________",
+        "markdown": "# Fraud Investigation Brief — CASE-002\n\n**RingSight** · Run `RUN-20260607-DEMO` · Generated 2026-06-07\n\n---\n\n## Executive Summary\n\nAC-0010 transferred $83,017 to AC-0011 across 14 internal transfers over 8 months. Risk score 88, Critical severity, Immediate urgency.\n\n---\n\n## Limitations\n\nThis report is based solely on transaction metadata and agent-detected patterns. It does not prove fraud.\n\n---\n\n## Analyst Sign-Off\n\nReviewed by: ____________________  \nDate: ____________________  \nDecision: ____________________\n",
+        "source_agent": "agent_4_report_writer"
+      },
+      {
+        "report_id": "A4-REPORT-00003",
+        "run_id": "RUN-20260607-DEMO",
+        "case_id": "CASE-003",
+        "title": "Repeated Transfer Pair — AC-0001",
+        "generated_at": "2026-06-07T10:04:00Z",
+        "risk_score": 64,
+        "severity": "Medium",
+        "recommended_action": "REQUEST_ENHANCED_REVIEW",
+        "urgency": "Medium",
+        "total_exposure": 26986,
+        "accounts": ["AC-0001"],
+        "relationship_ids": ["REL-0001"],
+        "transaction_ids": ["TX-00001","TX-00002"],
+        "executive_summary": "AC-0001 shows repeated internal transfer activity totalling $19,748. While this overlaps with CASE-001, the isolated account view scores at 64 — below the immediate escalation threshold. Enhanced KYC review is recommended within 5 business days.",
+        "key_evidence": [
+          { "heading": "Repeated Transfers", "body": "35 transfers from AC-0001 with consistent amount structuring. As the originating account in the CASE-001 smurfing chain, this account warrants enhanced review." }
+        ],
+        "network_summary": "Single account identified with repeated outgoing transfer behaviour. Part of the broader smurfing network identified in CASE-001.",
+        "action_summary": "Request enhanced KYC review for AC-0001 within 5 business days. Cross-reference with CASE-001 which covers the full smurfing network.",
+        "limitations": "This report is based solely on transaction metadata and agent-detected patterns. It does not prove fraud or replace a full human investigation. Score of 64 is below the immediate escalation threshold.",
+        "analyst_signoff": "Reviewed by: ____________________\nDate: ____________________\nDecision: ____________________",
+        "markdown": "# Fraud Investigation Brief — CASE-003\n\n**RingSight** · Run `RUN-20260607-DEMO` · Generated 2026-06-07\n\n---\n\n## Executive Summary\n\nAC-0001 shows repeated transfer activity with risk score 64. Enhanced review recommended within 5 business days.\n\n---\n\n## Limitations\n\nThis report does not prove fraud and does not replace a full human investigation.\n\n---\n\n## Analyst Sign-Off\n\nReviewed by: ____________________  \nDate: ____________________  \nDecision: ____________________\n",
+        "source_agent": "agent_4_report_writer"
+      }
+    ],
+    "cognee": {
+      "dataset_name": "agent-4-investigation-reports-RUN-20260607-DEMO",
+      "recalled_agent_1": true,
+      "recalled_agent_2": true,
+      "recalled_agent_3": true,
+      "stored_agent_4": true,
+      "stored_at": "2026-06-07T10:04:00Z",
+      "error": null
+    }
+  }
+}

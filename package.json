@@ -6,16 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "cognee": "bash start-cognee.sh"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.102.0",
+    "@xyflow/react": "^12.11.0",
+    "graphology": "^0.26.0",
+    "graphology-components": "^1.5.4",
+    "lucide-react": "^1.17.0",
     "next": "16.2.7",
+    "openai": "^6.42.0",
+    "papaparse": "^5.5.3",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
+    "@types/papaparse": "^5.5.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
