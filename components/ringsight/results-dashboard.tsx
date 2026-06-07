@@ -191,7 +191,7 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
             <span className="mt-1 font-mono text-sm font-semibold text-zinc-500">{engine.run_id}</span>
             <span className="mt-2 inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-700 shadow-sm">
               <span className="h-2 w-2 rounded-full bg-emerald-500" />
-            Research-informed by Geodo
+            Research-informed by Geodo · LINGCODE.DEV · COGNEE · TRUPEER · KAGGLE
           </span>
           </div>
           <div className="flex justify-end">

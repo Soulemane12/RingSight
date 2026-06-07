@@ -3,7 +3,7 @@ import { Resend } from 'resend';
 
 export const runtime = 'nodejs';
 
-const REVIEWER_EMAIL = '14soulemanesow@gmail.com';
+const REVIEWER_EMAILS = ['14soulemanesow@gmail.com', 'ajaygutha1@gmail.com'];
 
 interface ActionReasonEmail {
   reason_code?: string;
@@ -81,7 +81,7 @@ export async function POST(request: NextRequest) {
 
   const { error } = await resend.emails.send({
     from: 'RingSight <onboarding@resend.dev>',
-    to: REVIEWER_EMAIL,
+    to: REVIEWER_EMAILS,
     subject: `[RingSight] ${urgency === 'Immediate' ? 'Immediate review required' : 'Case flagged'} - ${case_id} (${risk_score}/100)`,
     html: buildFlagEmail({
       case_id,
