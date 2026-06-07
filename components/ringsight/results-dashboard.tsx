@@ -1,12 +1,15 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { AlertCircle, Flag, X } from 'lucide-react';
+import { AlertCircle, Flag, X, LayoutDashboard, BookOpen } from 'lucide-react';
 import { MetricCard } from './metric-card';
 import { CaseList } from './case-list';
 import { CaseDetail } from './case-detail';
+import { DocsPanel } from './docs-panel';
 import { formatMoneyFull } from '@/lib/ui/format';
 import type { FullAnalysisResult } from '@/lib/ui/types';
+
+type DashboardTab = 'cases' | 'docs';
 
 interface ResultsDashboardProps {
   result: FullAnalysisResult;
@@ -32,6 +35,7 @@ const autoFlagRuns = new Map<string, Promise<AutoFlagResult>>();
 export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
   const { engine, agent1, agent2, agent3, agent4 } = result;
 
+  const [tab, setTab] = useState<DashboardTab>('cases');
   const [selectedCaseId, setSelectedCaseId] = useState<string>(
     agent2.cases[0]?.case_id ?? '',
   );
@@ -203,46 +207,72 @@ export function ResultsDashboard({ result, onReset }: ResultsDashboardProps) {
             </button>
           </div>
         </div>
-      </div>
 
-      <div className="px-6 py-6 max-w-[1400px] mx-auto">
-        {/* Top metrics */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-          <MetricCard label="Total Funds at Risk" value={formatMoneyFull(totalExposure)} sub={`Based on all ${agent2.cases.length} cases: ${caseSeveritySummary}`} />
-          <MetricCard label="Fraud Cases" value={String(agent2.cases.length)} sub={`from ${agent1.findings.length} patterns found`} />
-          <MetricCard label="Connected Accounts" value={String(connectedAccounts)} sub="in flagged networks" />
-          <MetricCard label="Transfers Reviewed" value={engine.metrics.internal_transfer_count.toLocaleString()} sub={`${engine.metrics.account_count} accounts total`} />
-        </div>
-
-        {/* Main layout */}
-        <div className="flex gap-5 min-h-0">
-          <div className="w-80 shrink-0">
-            <CaseList cases={agent2.cases} actions={agent3.actions} selectedCaseId={selectedCaseId} onSelect={setSelectedCaseId} />
-          </div>
-          <div className="flex-1 min-w-0 overflow-y-auto">
-            {selectedCase ? (
-              <CaseDetail
-                caseItem={selectedCase}
-                action={selectedAction}
-                findings={caseFindingsForCase}
-                report={selectedReport}
-                agent4={agent4}
-                agent1FindingCount={agent1.findings.length}
-                agent2CaseCount={agent2.cases.length}
-                agent3ActionCount={agent3.actions.length}
-                allAccounts={engine.accounts}
-                allRelationships={engine.relationships}
-                allTransactions={caseTxns}
-                autoFlagged={autoFlaggedCaseIds.has(selectedCaseId)}
-              />
-            ) : (
-              <div className="flex items-center justify-center h-64 text-zinc-400 text-sm">
-                Select a case to view details
-              </div>
-            )}
-          </div>
+        {/* Tab bar */}
+        <div className="flex gap-1 mt-4 border-b border-zinc-200">
+          <TabBtn active={tab === 'cases'} onClick={() => setTab('cases')} icon={<LayoutDashboard className="w-3.5 h-3.5" />} label="Cases" />
+          <TabBtn active={tab === 'docs'}  onClick={() => setTab('docs')}  icon={<BookOpen className="w-3.5 h-3.5" />} label="Docs & Dataset" />
         </div>
       </div>
+
+      {tab === 'docs' ? (
+        <DocsPanel />
+      ) : (
+        <div className="px-6 py-6 max-w-[1400px] mx-auto">
+          {/* Top metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <MetricCard label="Total Funds at Risk" value={formatMoneyFull(totalExposure)} sub={`Based on all ${agent2.cases.length} cases: ${caseSeveritySummary}`} />
+            <MetricCard label="Fraud Cases" value={String(agent2.cases.length)} sub={`from ${agent1.findings.length} patterns found`} />
+            <MetricCard label="Connected Accounts" value={String(connectedAccounts)} sub="in flagged networks" />
+            <MetricCard label="Transfers Reviewed" value={engine.metrics.internal_transfer_count.toLocaleString()} sub={`${engine.metrics.account_count} accounts total`} />
+          </div>
+
+          {/* Main layout */}
+          <div className="flex gap-5 min-h-0">
+            <div className="w-80 shrink-0">
+              <CaseList cases={agent2.cases} actions={agent3.actions} selectedCaseId={selectedCaseId} onSelect={setSelectedCaseId} />
+            </div>
+            <div className="flex-1 min-w-0 overflow-y-auto">
+              {selectedCase ? (
+                <CaseDetail
+                  caseItem={selectedCase}
+                  action={selectedAction}
+                  findings={caseFindingsForCase}
+                  report={selectedReport}
+                  agent4={agent4}
+                  agent1FindingCount={agent1.findings.length}
+                  agent2CaseCount={agent2.cases.length}
+                  agent3ActionCount={agent3.actions.length}
+                  allAccounts={engine.accounts}
+                  allRelationships={engine.relationships}
+                  allTransactions={caseTxns}
+                  autoFlagged={autoFlaggedCaseIds.has(selectedCaseId)}
+                />
+              ) : (
+                <div className="flex items-center justify-center h-64 text-zinc-400 text-sm">
+                  Select a case to view details
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
+  );
+}
+
+function TabBtn({ active, onClick, icon, label }: { active: boolean; onClick: () => void; icon: React.ReactNode; label: string }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex items-center gap-1.5 px-4 py-2 text-sm font-medium border-b-2 transition-colors -mb-px ${
+        active
+          ? 'border-zinc-900 text-zinc-900'
+          : 'border-transparent text-zinc-500 hover:text-zinc-700 hover:border-zinc-300'
+      }`}
+    >
+      {icon}
+      {label}
+    </button>
   );
 }
